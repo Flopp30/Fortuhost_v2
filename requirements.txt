@@ -3,3 +3,4 @@ django-filter==23.*
 python-dotenv
 django-debug-toolbar==4.1.*
 psycopg2-binary
+django-allauth==0.54.*

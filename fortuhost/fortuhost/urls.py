@@ -18,6 +18,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("user/", include("user.urls", namespace="user")),
     path("user/", include("hosted_app.urls", namespace="hosted_app")),
+    path('auth/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
