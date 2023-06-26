@@ -5,6 +5,7 @@ from django.conf import settings
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    # index
     path(
         "",
         TemplateView.as_view(
@@ -16,9 +17,16 @@ urlpatterns = [
         name="index",
     ),
     path("admin/", admin.site.urls),
+
+    # user
     path("user/", include("user.urls", namespace="user")),
-    path("user/", include("hosted_app.urls", namespace="hosted_app")),
+
+    # hosted apps
+    path("app/", include("hosted_app.urls", namespace="hosted_app")),
+
+    # auth
     path('auth/', include('allauth.urls')),
+    path("sign/", include("sign.urls", namespace="sign")),
 ]
 
 if settings.DEBUG:

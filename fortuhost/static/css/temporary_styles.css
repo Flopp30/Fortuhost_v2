@@ -1,0 +1,12 @@
+.main_button {
+  display: inline-block;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.main_button:hover {
+    background-color: #e0e0e0;
+}

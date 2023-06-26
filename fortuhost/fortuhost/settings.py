@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,10 +31,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    #
-    "user",
-    "hosted_app",
-
     # allauth
     'allauth',
     'allauth.account',
@@ -42,6 +40,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.google',
 
+    # custom
+    "user",
+    "hosted_app",
+    "sign",
 ]
 
 MIDDLEWARE = [
@@ -54,10 +56,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DEBUG:
-    INSTALLED_APPS += ["debug_toolbar"]
-    MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
-    INTERNAL_IPS = ["127.0.0.1"]
 
 ROOT_URLCONF = 'fortuhost.urls'
 
@@ -96,6 +94,14 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 AUTH_USER_MODEL = "user.User"
+
+LOGIN_REDIRECT_URL = reverse_lazy("hosted_app:list")
+
+LOGOUT_REDIRECT_URL = reverse_lazy("index")
+
+# TODO need to delete it when need to send emails again
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+# end remove area
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -248,17 +254,11 @@ LOGGING = {
     }
 }
 
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-SITE_ID = 1
-
 if DEBUG:
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
+    INTERNAL_IPS = ["127.0.0.1"]
+
     LOGGING['handlers']['errors_file'] = {
         'class': 'logging.NullHandler',
     }
@@ -271,3 +271,13 @@ if DEBUG:
     LOGGING['handlers']['debug_file'] = {
         'class': 'logging.NullHandler'
     }
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1

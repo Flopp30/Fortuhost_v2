@@ -24,10 +24,25 @@
                     <a href="#">Поддержка</a>
                     <span class="blur">Поддержка</span>
                 </li>
-                <li class="header__nav-item">
-                    <a href="#">Вход</a>
-                    <span class="blur">Вход</span>
-                </li>
+                {% if not user.is_authenticated %}
+                    <li class="header__nav-item">
+                        <a href="{% url 'sign:signup' %}">Регистрация</a>
+                        <span class="blur">Регистрация</span>
+                    </li>
+                    <li class="header__nav-item">
+                        <a href="{% url 'sign:signin' %}">Вход</a>
+                        <span class="blur">Вход</span>
+                    </li>
+                {% else %}
+                    <li class="header__nav-item">
+                        <a href="{% url 'hosted_app:list' %}">Мои приложения</a>
+                        <span class="blur">Мои приложения</span>
+                    </li>
+                    <li class="header__nav-item">
+                        <a href="{% url 'sign:signout' %}">Выйти</a>
+                        <span class="blur">Выйти</span>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
     </div>

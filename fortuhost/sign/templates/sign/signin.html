@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+    <main>
+    <h1>Авторизация</h1>
+        <div id="sign-variant-via-email">
+            <div class="border rounded border-light p-2 bg-light">
+                <form method="post" class="form">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button class="main_button" type="submit">Войти</button>
+                    <a class="main_button" href="#" role="button">Забыли пароль?</a>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
