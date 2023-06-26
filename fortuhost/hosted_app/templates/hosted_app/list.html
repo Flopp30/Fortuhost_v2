@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %}Создание приложения{% endblock %}
+
+{% block content %}
+    <main>
+        <a type="button" class="main_button" href="{% url 'hosted_app:create' %}">Создать приложение</a>
+        <table>
+            <thead>
+            <tr style="text-align: center">
+                <td>#</td>
+                <td>ID</td>
+                <td>Title</td>
+                <td>Description</td>
+                <td>Container id</td>
+                <td>Status</td>
+                <td colspan="4">Actions</td>
+            </tr>
+            </thead>
+            {% for app in object_list %}
+                <tr style="text-align: center">
+                    <td><a class="main_button" href="{% url 'hosted_app:update' pk=app.pk %}">edit</a></td>
+                    <td>{{ app.id }}</td>
+                    <td>{{ app.title }}</td>
+                    <td>{{ app.description }}</td>
+                    <td>{{ app.docker_container_id }}</td>
+                    <td>{{ app.status }}</td>
+                    <td>
+                        <a class="main_button" href="#">Start</a>
+                        <a class="main_button" href="#">Stop</a>
+                        <a class="main_button" href="#">Pause</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">Пока нет созданных приложений у пользователя: {{ user.username }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </main>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %}Создание приложения{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Создание приложения</h1>
+        <div id="sign-variant-via-email">
+            <div class="border rounded border-light p-2 bg-light">
+                <form method="post" class="form" action="{% url 'hosted_app:create' %}?next={% url 'hosted_app:list' %}">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button class="main_button" type="submit">Создать приложение</button>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
