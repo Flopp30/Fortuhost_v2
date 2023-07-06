@@ -31,6 +31,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    # celery
+    'django_celery_results',
+
     # allauth
     'allauth',
     'allauth.account',
@@ -281,3 +284,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
+
+# CELERY
+# CELERY_TIMEZONE = "Australia/Tasmania"
+
+CELERY_BROKER_URL = "redis://localhost:16379"
+CELERY_RESULT_BACKEND = "redis://localhost:16379"
